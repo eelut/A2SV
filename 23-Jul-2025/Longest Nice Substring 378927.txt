@@ -1,0 +1,20 @@
+# Problem: Longest Nice Substring - https://leetcode.com/problems/longest-nice-substring/
+
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var longestNiceSubstring = function(s) {
+ if(s.length<2) return "";
+ const set= new Set();
+ for(const c of s) set.add(c);
+ for(let i=0;i<=s.length-1;i++){
+    const upperCaseChar=s[i].toUpperCase();
+    const lowerCaseChar=s[i].toLowerCase();
+    if(set.has(upperCaseChar) && set.has(lowerCaseChar)) continue;
+    let str1=longestNiceSubstring(s.slice(0,i));
+    let str2=longestNiceSubstring(s.slice(i+1));
+    return str1.length>= str2.length ? str1:str2;
+ }
+ return s;
+};
